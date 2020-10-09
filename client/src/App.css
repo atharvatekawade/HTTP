@@ -1,0 +1,181 @@
+.ui.dropdown.search{
+  min-width: 150px !important;
+  margin-right: 0.8em;
+}
+
+.ui.dropdown{
+  min-width: 80px !important;
+  margin-right: 0.8em;
+}
+
+input[type="url"] {
+    width: 600px;
+    margin-right: 0.8em;
+}
+
+input[type="email"] {
+    width: 60px;
+    margin-right: 0.8em;
+}
+
+.form{
+  margin-top: 2%;
+}
+
+.invisible{
+  color:rgba(0,0,0,0);
+}
+
+.topnav {
+  background-color: #152238;
+  overflow: hidden;
+  color:white;
+}
+
+.topnav-right {
+  float: right;
+}
+
+
+
+.inline{
+  display: inline;
+}
+
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-aagn: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: rgba(249,166,2,0.85);
+  color: white;
+}
+
+.btn{
+  background-color: green;
+  color:rgba(221,218,223);
+}
+
+
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.after{
+  padding: 6px 0px;
+  width: 130px;
+}
+
+/* The actual popup (appears on top) */
+.popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: rgba(212,52,23,0.8);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 12px 4px;
+  position: relative;
+  z-index: 1;
+  bottom: 125%;
+  right: 20px;
+  margin-left: -80px;
+  top: -38px;
+}
+
+#myPopup{
+  padding: 12px 0px;
+}
+
+.heading{
+  color: black;
+}
+
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(212,52,23,0.8) transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .err {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+.sidenav {
+  height: 54%; /* Full-height: remove this if you want "auto" height */
+  width: 20%;
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background: white; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  margin-top:6%;
+  margin-left: 0.2%;
+  border-radius: 10px;
+  padding-right: 18px;
+  padding-left: 12px;
+  border: 2px solid orange;
+  color: #787276;
+}
+
+.forward{
+  margin-top: 3px;
+  color: #007bff;
+  font-size: 16px;
+}
+
+
+.url{
+  margin-left: 50%;
+}
+
+
+/* The navigation menu links */
+.sidenav a {
+  color: #787276;
+  padding: 6px 0px;
+  text-decoration: none;
+  font-size: 14px;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
