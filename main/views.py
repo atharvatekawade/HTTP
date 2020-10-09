@@ -109,7 +109,9 @@ def result(request):
         final_answer['headers']=a
         final_answer['cookies']=b
         final_answer['status']=answer.status_code
-        final_answer['time']=answer.elapsed.total_seconds()*1000
+        time_req=answer.elapsed.total_seconds()*1000
+        time_req=round(time_req,3)
+        final_answer['time']=time_req
         final_answer['body']=answer.text
         final_answer['json']=answer.text
 
