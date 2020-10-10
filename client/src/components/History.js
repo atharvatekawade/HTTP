@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import JSONToHTMLTable from './JSONToHTMLTable';
 import { Form, Input, TextArea, Button } from 'semantic-ui-react'
 import axios from 'axios'
+import { BeatLoader } from 'react-spinners';
 
 export default class Search extends Component {
     constructor(props){
@@ -9,15 +10,18 @@ export default class Search extends Component {
         this.state={
         	details:{},
         	active_tab:'query',
-        	active_response:1
+        	active_response:1,
+        	loading:false
         }
     }
 
     componentDidMount(){
+    	this.setState({loading:true})
     	axios.get('/specific/'+this.props.match.params.id)
     		.then(res => {
-    			this.setState({details:res.data,active_tab:'query',active_response:1});
+    			this.setState({details:res.data,active_tab:'query',active_response:1,loading:false});
     		})
+    		.catch(err => window.loocation='/')
     }
 
     activate_request = (e) => {
@@ -35,6 +39,12 @@ export default class Search extends Component {
     		<div className="ui grid" style={{'TextAlign':'center'}}>
                 <div className="two wide column"></div>
                 <div className="ten wide column">
+                	{!this.state.loading && 
+                		<h2 className='invisible'>Hello</h2>
+                	}
+                	{this.state.loading && 
+                		<BeatLoader size={30} color='orange' loading={this.state.loading} />
+                	}
                 	<div className='two fields top'>
                         <div className='ui input'>
                             <input
@@ -338,7 +348,7 @@ export default class Search extends Component {
 		                                </div>
 		                            </div>
 		                            <br />
-		                            
+
 		                            <h3><u>Request Body</u> :</h3>
 		                            {this.state.details.request_body && this.state.details.request_body.length>0 &&
 			                            <table className="ui celled striped table">
