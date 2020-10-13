@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import JSONToHTMLTable from './JSONToHTMLTable';
 import { Form, Input, TextArea, Button } from 'semantic-ui-react'
 import axios from 'axios'
+import { BeatLoader } from 'react-spinners';
 
 export default class Search extends Component {
     constructor(props){
@@ -9,15 +10,18 @@ export default class Search extends Component {
         this.state={
         	details:{},
         	active_tab:'query',
-        	active_response:1
+        	active_response:1,
+        	loading:false
         }
     }
 
     componentDidMount(){
+    	this.setState({loading:true})
     	axios.get('/specific/'+this.props.match.params.id)
     		.then(res => {
-    			this.setState({details:res.data,active_tab:'query',active_response:1});
+    			this.setState({details:res.data,active_tab:'query',active_response:1,loading:false});
     		})
+    		.catch(err => window.loocation='/')
     }
 
     activate_request = (e) => {
@@ -35,6 +39,12 @@ export default class Search extends Component {
     		<div className="ui grid" style={{'TextAlign':'center'}}>
                 <div className="two wide column"></div>
                 <div className="ten wide column">
+                	{!this.state.loading && 
+                		<h2 className='invisible'>Hello</h2>
+                	}
+                	{this.state.loading && 
+                		<BeatLoader size={30} color='orange' loading={this.state.loading} />
+                	}
                 	<div className='two fields top'>
                         <div className='ui input'>
                             <input
@@ -338,6 +348,7 @@ export default class Search extends Component {
 		                                </div>
 		                            </div>
 		                            <br />
+
 		                            <h3><u>Request Body</u> :</h3>
 		                            {this.state.details.request_body && this.state.details.request_body.length>0 &&
 			                            <table className="ui celled striped table">
@@ -377,6 +388,7 @@ export default class Search extends Component {
 		                            </div>
 		                            <br />
 		                            <b style={{color:"#007bff"}}>Status-code:{this.state.details.status}  <a href={'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/'+this.state.details.status.toString()} target="_blank"><i className="fa fa-lg fa-info-circle" aria-hidden="true" style={{position:"relative",right:"-3.6px",color:"rgba(32,33,31,0.4)"}}></i></a> <span className='topnav-right'>Response time:{this.state.details.time} ms</span></b>
+		                            <hr />
 		                            <h3><u>Response Headers</u> :</h3>
 		                            {this.state.details.response_headers && this.state.details.response_headers.length>0 &&
 			                            <table className="ui celled striped table">

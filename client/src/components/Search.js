@@ -37,10 +37,10 @@ export default class Search extends Component {
         this.handleChange=this.handleChange.bind(this);
     }
     componentDidMount(){
+        this.setState({loading:true})
         axios.get('/result')
             .then((res) => {
-                this.setState({methods:[{text:'GET',key:'GET',value:'GET'},{text:'POST',key:'POST',value:'POST'},{text:'HEAD',key:'HEAD',value:'HEAD'}],show:0,method:'GET',url:'',active_request: 'query',active_response:0,response_format:'',response_headers:[],response_cookies:[],response_body:'',response_json:'',response_formats:[{text:'html',key:'html',value:'html'},{text:'json',key:'json',value:'json'}],request_headers:[{text:'Accept',key:'Accept',value:'Accept'},{text:'User-Agent',key:'User-Agent',value:'User-Agent'},{text:'Accept-Encoding',key:'Accept-Encoding',value:'Accept-Encoding'},{text:'Accept-Language',key:'Accept-Language',value:'Accept-Language'},{text:'Cache-Control',key:'Cache-Control',value:'Cache-Control'},{text:'Date',key:'Date',value:'Date'},{text:'Connection',key:'Connection',value:'Connection'},{text:'Transfer-Encoding',key:'Transfer-Encoding',value:'Transfer-Encoding'},{text:'Cookie',key:'Cookie',value:'Cookie'},{text:'Expect',key:'Expect',value:'Expect'},{text:'From',key:'From',value:'From'},{text:'Accept-Charset',key:'Accept-Charset',value:'Accept-Charset'}],status:'',time:'',history:res.data.reverse()})
-                console.log(this.state.history)
+                this.setState({methods:[{text:'GET',key:'GET',value:'GET'},{text:'POST',key:'POST',value:'POST'},{text:'HEAD',key:'HEAD',value:'HEAD'}],show:0,method:'GET',url:'',active_request: 'query',active_response:0,response_format:'',response_headers:[],response_cookies:[],response_body:'',response_json:'',response_formats:[{text:'html',key:'html',value:'html'},{text:'json',key:'json',value:'json'}],request_headers:[{text:'Accept',key:'Accept',value:'Accept'},{text:'User-Agent',key:'User-Agent',value:'User-Agent'},{text:'Accept-Encoding',key:'Accept-Encoding',value:'Accept-Encoding'},{text:'Accept-Language',key:'Accept-Language',value:'Accept-Language'},{text:'Cache-Control',key:'Cache-Control',value:'Cache-Control'},{text:'Date',key:'Date',value:'Date'},{text:'Connection',key:'Connection',value:'Connection'},{text:'Transfer-Encoding',key:'Transfer-Encoding',value:'Transfer-Encoding'},{text:'Cookie',key:'Cookie',value:'Cookie'},{text:'Expect',key:'Expect',value:'Expect'},{text:'From',key:'From',value:'From'},{text:'Accept-Charset',key:'Accept-Charset',value:'Accept-Charset'}],status:'',time:'',history:res.data.reverse(),loading:false})
             })
     }
 
@@ -197,7 +197,7 @@ export default class Search extends Component {
                 <div className="four wide column">
                     <br />
                     <div className="sidenav" ref={this.myRef}>
-                        <h4 className='heading'>Recent Requests:</h4>
+                        <h4 className='heading'>Recent Requests :</h4>
                         { this.state.history.map((item, index) => (
                             <div key={index}>
                                 <a href={'/'+item._id.toString()} target="_blank"><b>{index+1}. {item.method}</b> - {item.url}</a>
@@ -211,7 +211,7 @@ export default class Search extends Component {
                         <h2 className='invisible'>Hide</h2>
                     }
                     <BeatLoader size={30} color='orange' loading={this.state.loading} />
-                    {this.state.err && this.state.err.length>0 &&
+                    {this.state.err && this.state.err.length>0 && !this.state.loading &&
                         <button className="popup btn after" onClick={this.click}>
                             New Request
                             <i className="fa fa-lg fa-plus" aria-hidden="true" style={{color:"white",position:"relative",right:"-3.5px"}}></i>
