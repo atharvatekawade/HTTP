@@ -19,9 +19,12 @@ from main import views
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('result',views.result),
     path('specific/<str:id>',views.specific),
-    re_path('.*',TemplateView.as_view(template_name='index.html')),
+    re_path('.*',views.common),
+    #re_path('.*',AboutView.as_view()),
 ]
