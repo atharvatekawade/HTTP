@@ -9,8 +9,8 @@ import requests
 import pymongo
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-
-
+import string 
+import random
 
 
 # Create your views here.
@@ -18,6 +18,17 @@ from bson.objectid import ObjectId
 cluster=MongoClient('mongodb+srv://atharva:<password>@basicdb.4nvfs.mongodb.net/<db>?retryWrites=true&w=majority')
 db=cluster['http']
 collection=db['history']
+
+def common(request):
+    id=''.join(random.choices(string.ascii_uppercase +string.digits, k = 10))
+    if('id' in request.COOKIES):
+        response = render(request, 'index.html',{'cookie':request.COOKIES['id']})
+    else:
+        response = render(request, 'index.html',{'cookie':'No cookie'})
+        response.set_cookie('id',id)
+    return response
+
+
 
 def specific(request,id):
     if(request.method=='GET'):
@@ -29,13 +40,18 @@ def specific(request,id):
 
 def result(request):
     if(request.method=='GET'):
-        find=list(collection.find({}))
+        if('id' in request.COOKIES):
+            id=request.COOKIES['id']
+            find=list(collection.find({'cookie':id}))
+        else:
+            find=[]
         for i in find:
             i['_id']=str(i['_id'])
         return JsonResponse(find,safe=False)
-        l=[{'1':'a','2':'b'}]
-        #return JsonResponse(l,safe=False)
     elif(request.method=='POST'):
+        id=0
+        if('id' in request.COOKIES):
+            id=request.COOKIES['id']
         info = request.body.decode('utf8').replace("'", '"')
         info=eval(info)
         err=''
@@ -128,6 +144,7 @@ def result(request):
         new_object['time']=answer.elapsed.total_seconds()*1000
         new_object['response_headers']=a
         new_object['cookies']=b
+        new_object['cookie']=id
 
         try:
             final_answer['json']=answer.json()
